@@ -45,3 +45,28 @@ body{
     padding: 10px;
     font-size: 18px;
 }
+
+
+.flex-container {
+    display: flex;
+    height: 100vh;
+  }
+  #sidebarMenu {
+    width: 250px;
+    background-color: #f8f9fa;
+  }
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+ 
+
+  .list-group-item-action:hover {
+    background-color: #b2b2b3;
+    /* color: #0056b3; */
+  }
+  .list-group-item-action:focus, .list-group-item-action.active {
+    background-color: #b2b2b3;
+    color: #0056b3;
+  }
