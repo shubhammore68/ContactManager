@@ -21,11 +21,15 @@
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
                   <input type="text" name="name" class="form-control" placeholder="Enter here" id="name" required th:value="${user.name}">
+                  <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
+                  
+                  
                 </div>
     
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" name="email" class="form-control" placeholder="Enter here" id="email" aria-describedby="emailHelp" required th:value="${user.email}">
+                  <p th:each=" e: ${#fields.errors('email')}" th:text="${e}"></p>
                 </div>
 
                 <div class="mb-3">
