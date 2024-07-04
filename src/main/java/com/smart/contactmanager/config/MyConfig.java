@@ -28,7 +28,7 @@ public class MyConfig {
         return http.authorizeHttpRequests(request -> request
             
             .requestMatchers("/user/**").authenticated()
-            .anyRequest().permitAll()).formLogin(Customizer.withDefaults()).httpBasic(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable).build();
+            .anyRequest().permitAll()).formLogin(form -> form.loginPage("/signin")).httpBasic(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable).build();
     }
 
 

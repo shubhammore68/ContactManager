@@ -96,5 +96,11 @@ public class HomeController {
 
     }
     
+
+    // custom login page
+    @RequestMapping("/signin")
+    public String customLogin(){
+        return "login";
+    }
     
 }
