@@ -70,6 +70,11 @@ public class Contact {
     public void setUser(User user) {
         this.user = user;
     }
+    @Override
+    public String toString() {
+        return "Contact [contId=" + contId + ", name=" + name + ", email=" + email + ", work=" + work + ", description="
+                + description + ", imageUrl=" + imageUrl + ", phone=" + phone + ", user=" + user + "]";
+    }
 
     
 

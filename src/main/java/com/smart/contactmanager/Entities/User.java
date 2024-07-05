@@ -89,12 +89,12 @@ public class User {
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", about=" + about
-                + ", imageUrl=" + imageUrl + ", role=" + role + ", isEnabled=" + isEnabled + ", contacts=" + contacts
-                + "]";
-    }
+    // @Override
+    // public String toString() {
+    //     return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", about=" + about
+    //             + ", imageUrl=" + imageUrl + ", role=" + role + ", isEnabled=" + isEnabled + ", contacts=" + contacts
+    //             + "]";
+    // }
 
 
     
