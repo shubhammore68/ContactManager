@@ -11,6 +11,7 @@ public class MessageConfig {
     }
     
     public MessageConfig(String message, String type) {
+        super();
         this.message = message;
         this.type = type;
     }

@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.smart.contactmanager.Entities.Contact;
 import com.smart.contactmanager.Entities.User;
 import com.smart.contactmanager.Repository.UserRepository;
+import com.smart.contactmanager.config.MessageConfig;
+
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -58,7 +61,11 @@ public class UserController {
     
 
     @PostMapping("/process-contact")
-    public String processContact(@ModelAttribute Contact contact, @RequestParam("profileImg") MultipartFile file, Principal principal) {
+    public String processContact(@ModelAttribute Contact contact, 
+        Model model,
+        @RequestParam("profileImg") MultipartFile file, 
+        Principal principal,
+        HttpSession session) {
         
         String username = principal.getName();
         User user = this.userRepository.getUserByUserName(username);
@@ -76,14 +83,17 @@ public class UserController {
             Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
 
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            user.getContacts().add(contact);
+            this.userRepository.save(user);
+
+            session.setAttribute("message", new MessageConfig("Contact added successfully!", "success"));
 
            } catch (Exception e) {
-            
+            session.setAttribute("message", new MessageConfig("Something went wrong!", "danger"));
            }
 
         }
-        user.getContacts().add(contact);
-        this.userRepository.save(user);
+
 
         // System.out.println(contact);
         return "normal/addcontact";
