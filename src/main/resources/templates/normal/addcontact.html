@@ -7,8 +7,44 @@
 </head>
 <body>
     
-    <section >
-       <h1>add contacts</h1>
+    <section class="main-section">
+      <div class="row">
+        <div class="form-container container-fluid mt-1">
+          <div class="col-md-10 offset-md-1">
+            <form>
+              <div class="text-center pb-3">
+                <h2>Add Contacts</h2>
+              </div>
+              <div class="mb-3 d-flex align-items-center">
+                  <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+            </div>
+              <div class="mb-3 d-flex align-items-center">
+                <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+              </div>
+              <div class="mb-3 d-flex align-items-center">
+                <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                <input type="text" class="form-control" id="work" name="work" placeholder="Enter your work">
+              </div>
+              
+              <div class="mb-3 d-flex align-items-center">
+                <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number">
+              </div>
+              <div class="mb-3 d-flex align-items-center">
+                <!-- <i class="fa-solid fa-plus h2  p-1 me-2"></i> -->
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter a description"></textarea>
+              </div>
+              <div class="mb-3 d-flex align-items-center">
+                <!-- <i class="fa-solid fa-plus h2  p-1 me-2"></i> -->
+                <input type="file" class="form-control" id="imageUrl" name="imageUrl">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+        </div> 
     </section>
 </body>
 </html>
