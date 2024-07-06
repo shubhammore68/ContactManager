@@ -7,14 +7,20 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smart.contactmanager.Entities.Contact;
 import com.smart.contactmanager.Entities.User;
+import com.smart.contactmanager.Repository.ContactRepository;
 import com.smart.contactmanager.Repository.UserRepository;
 import com.smart.contactmanager.config.MessageConfig;
 
@@ -35,6 +41,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
 
     @ModelAttribute
     public void commonData(Model model, Principal principal){
@@ -73,6 +82,7 @@ public class UserController {
         
         if (file.isEmpty()) {
             System.out.println("file is empty");
+            contact.setImageUrl("contact.png");
             
         }else{
            try {
@@ -83,20 +93,38 @@ public class UserController {
             Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
 
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            user.getContacts().add(contact);
-            this.userRepository.save(user);
-
-            session.setAttribute("message", new MessageConfig("Contact added successfully!", "success"));
-
-           } catch (Exception e) {
-            session.setAttribute("message", new MessageConfig("Something went wrong!", "danger"));
-           }
-
+            
+            session.setAttribute("message", new MessageConfig("Contact added successfully", "success"));
+            // session.removeAttribute("message");
+            
+        } catch (Exception e) {
+            session.setAttribute("message", new MessageConfig("Something went wrong", "danger"));
         }
+        
+        }
+        user.getContacts().add(contact);
+        this.userRepository.save(user);
 
+        // session.removeAttribute("message");
 
         // System.out.println(contact);
         return "normal/addcontact";
+    }
+    
+
+    // get all the contacts
+
+    @GetMapping("/allcontacts/{page}")
+    public String getMethodName( @PathVariable("page") Integer page,Model model, Principal principal) {
+        
+        String username = principal.getName();
+        User user = this.userRepository.getUserByUserName(username);
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Contact> contacts = this.contactRepository.findContactByUser(user.getId(), pageable);
+        model.addAttribute("contacts", contacts);
+        model.addAttribute("currentpage", page);
+        model.addAttribute("totalpages", contacts.getTotalPages());
+        return "normal/allcontacts";
     }
     
 }

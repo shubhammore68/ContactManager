@@ -13,13 +13,13 @@
           <div class="col-md-10 offset-md-1">
 
             <!-- alert message -->
-            <div th:if="${session.message}" >
+            <!-- <div th:if="${session.message != null}" >
 
               <div th:classappend="${'alert-'+session.message.getType()}" class="alert alert-success text-center" role="alert">
                 <span th:text="${session.message.getMessage()}"></span>
               </div>
              
-            </div>
+            </div> -->
             <form th:action="@{/user/process-contact}" method="post" th:object="${contact}" enctype="multipart/form-data"> 
               <div class="text-center pb-3">
                 <h2>Add Contacts</h2>
@@ -43,7 +43,7 @@
               </div>
               <div class="mb-3 d-flex align-items-center">
                 <!-- <i class="fa-solid fa-plus h2  p-1 me-2"></i> -->
-                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter a description"></textarea>
+                <textarea class="form-control" id="default-editor" name="description" rows="3" placeholder="Enter a description"></textarea>
               </div>
               <div class="mb-3 d-flex align-items-center">
                 <!-- <i class="fa-solid fa-plus h2  p-1 me-2"></i> -->
@@ -54,6 +54,12 @@
           </div>
         </div>
         </div> 
+
+        <script>
+          tinymce.init({
+            selector: 'textarea#default-editor'
+          });
+        </script>
     </section>
 </body>
 </html>
