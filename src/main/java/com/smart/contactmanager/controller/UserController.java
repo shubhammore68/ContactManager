@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -126,5 +126,21 @@ public class UserController {
         model.addAttribute("totalpages", contacts.getTotalPages());
         return "normal/allcontacts";
     }
+
+
+    // view details of contact
+
+    @GetMapping("/contact/{cid}")
+    public String getMethodName(@PathVariable("cid") int cid, Model model) {
+
+       Optional<Contact> contactoOptional = this.contactRepository.findById(cid);
+       Contact contact = contactoOptional.get();
+
+        model.addAttribute("contact", contact);
+
+        
+        return "normal/contactdetail";
+    }
+    
     
 }

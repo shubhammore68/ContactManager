@@ -102,3 +102,11 @@ body{
     object-fit: cover;
     border-radius: 50%;
   }
+
+  .profileimgdetail{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 4px;
+  }

@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+<body>
+    
+    <section class="main-section">
+        <div class="">
+            <div class="bg-white card containerfluid">
+                <div class="container text-center">
+                    <img src="" th:src="@{'/images/'+${contact.imageUrl}}" class="profileimgdetail" alt="profileimage">
+                    <h2 th:text="${contact.name}"></h2>
+
+                    <table>
+                        <thead>
+                          <tr>
+                            <th scope="col">#Id</th>
+                            <td th:text="${contact.contId}"></td>
+                           
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Email</th>
+                            <td th:text="${contact.email}"></td>
+                          </tr>
+
+                          <tr>
+                            <th scope="row">Phone</th>
+                            <td th:text="${contact.phone}"></td>
+                          </tr>
+
+                          <tr>
+                            <th scope="row">Work</th>
+                            <td th:text="${contact.work}"></td>
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+
+                      <div class="container">
+                        <span th:text="${contact.description}"></span>
+                      </div>
+                </div>
+            </div>
+        </div>    
+    </section>
+</body>
+</html>
