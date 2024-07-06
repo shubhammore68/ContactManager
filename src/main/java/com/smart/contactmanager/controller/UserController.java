@@ -27,10 +27,13 @@ import com.smart.contactmanager.config.MessageConfig;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 
@@ -145,6 +148,25 @@ public class UserController {
         
         return "normal/contactdetail";
     }
+    
+
+    // delete contact
+   @GetMapping("/delete/{cid}")
+   public String deleteContact(@PathVariable("cid") int cid, Principal principal) {
+
+    Optional<Contact> contactoOptional = this.contactRepository.findById(cid);
+       Contact contact = contactoOptional.get();
+
+       String username = principal.getName();
+       User user = this.userRepository.getUserByUserName(username);
+
+       if(user.getId() == contact.getUser().getId()){ 
+           this.contactRepository.deleteById(cid);
+       }
+
+        return "redirect:/user/allcontacts/0";
+   }
+   
     
     
 }

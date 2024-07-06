@@ -36,7 +36,10 @@
                     <td th:text="${c.phone}">Otto</td>
                     <td>
                         <i class="fa-solid fa-eye"></i>
-                        <i class="fa-solid fa-trash"></i>
+                        <a href="#" th:href="@{'/user/delete/'+${c.contId}}">
+                          <i class="fa-solid fa-trash" ></i>
+                        </a>
+                        
                     </td>
 
                   </tr>
