@@ -131,13 +131,17 @@ public class UserController {
     // view details of contact
 
     @GetMapping("/contact/{cid}")
-    public String getMethodName(@PathVariable("cid") int cid, Model model) {
+    public String getMethodName(@PathVariable("cid") int cid, Model model, Principal principal) {
 
        Optional<Contact> contactoOptional = this.contactRepository.findById(cid);
        Contact contact = contactoOptional.get();
 
-        model.addAttribute("contact", contact);
+       String username = principal.getName();
+       User user = this.userRepository.getUserByUserName(username);
 
+       if(user.getId() == contact.getUser().getId()){
+           model.addAttribute("contact", contact);
+       }
         
         return "normal/contactdetail";
     }

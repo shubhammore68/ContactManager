@@ -10,7 +10,7 @@
     <section class="main-section">
         <div class="">
             <div class="bg-white card containerfluid">
-                <div class="container text-center">
+                <div class="container text-center" th:if="${contact}">
                     <img src="" th:src="@{'/images/'+${contact.imageUrl}}" class="profileimgdetail" alt="profileimage">
                     <h2 th:text="${contact.name}"></h2>
 
