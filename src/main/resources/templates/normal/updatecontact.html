@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+<body>
+    
+    <section class="main-section">
+        <div class="row">
+          <div class="form-container container-fluid mt-1">
+            <div class="col-md-10 offset-md-1">
+  
+              <!-- alert message -->
+              <!-- <div th:if="${session.message != null}" >
+  
+                <div th:classappend="${'alert-'+session.message.getType()}" class="alert alert-success text-center" role="alert">
+                  <span th:text="${session.message.getMessage()}"></span>
+                </div>
+               
+              </div> -->
+              <form th:action="@{/user/update-contact}" method="post" th:object="${contact}" enctype="multipart/form-data"> 
+                <div class="text-center pb-3">
+                  <h2>Add Contacts</h2>
+                </div>
+                <!-- hidden field for contact id -->
+                <input type="hidden" th:value="${contact.contId}" id="contId" name="contId">
+                <div class="mb-3 d-flex align-items-center">
+                    <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                  <input type="text" class="form-control" th:value="${contact.name}" id="name" name="name" placeholder="Enter your name">
+              </div>
+                <div class="mb-3 d-flex align-items-center">
+                  <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                  <input type="email" class="form-control" th:value="${contact.email}" id="email" name="email" placeholder="Enter your email">
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                  <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                  <input type="text" class="form-control" th:value="${contact.work}" id="work" name="work" placeholder="Enter your work">
+                </div>
+                
+                <div class="mb-3 d-flex align-items-center">
+                  <i class="fa-solid fa-plus h5  p-1 me-2"></i>
+                  <input type="tel" class="form-control" th:value="${contact.phone}" id="phone" name="phone" placeholder="Enter your phone number">
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                  <!-- <i class="fa-solid fa-plus h2  p-1 me-2"></i> -->
+                  <textarea class="form-control" th:text="${contact.description}" id="default-editor" name="description" rows="3" placeholder="Enter a description"></textarea>
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                  <!-- <i class="fa-solid fa-plus h2  p-1 me-2"></i> -->
+                  <input type="file" class="form-control" id="profileImg" name="profileImg">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+          </div> 
+  
+          <script>
+            tinymce.init({
+              selector: 'textarea#default-editor'
+            });
+          </script>
+      </section>
+</body>
+</html>

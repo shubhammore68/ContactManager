@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -167,6 +169,46 @@ public class UserController {
         return "redirect:/user/allcontacts/0";
    }
    
+   // update the contact
+   
+   @PostMapping("/updatecontact/{cid}")
+   public String updatecontact(@PathVariable("cid") int cid, Model model) {
+
+    Contact contact = this.contactRepository.findById(cid).get();
+    model.addAttribute("contact", contact);
+
+     
+    return "normal/updatecontact";
+   }
+   
     
-    
+   @PostMapping("/update-contact")
+   public String UpdateNewContact(@ModelAttribute Contact contact, @RequestParam("profileImg") MultipartFile file, Principal principal) {
+      try {
+        Contact oldContact = this.contactRepository.findById(contact.getContId()).get();
+        String username = principal.getName();
+        User user = this.userRepository.getUserByUserName(username);
+        contact.setUser(user);
+        if(!file.isEmpty()){
+
+         File deletefile = new ClassPathResource("/static/images").getFile();
+         File file2 = new File(deletefile, oldContact.getImageUrl());
+         file2.delete();
+ 
+         File newfile = new ClassPathResource("/static/images").getFile();
+         Path path = Paths.get(newfile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+         Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING );
+         contact.setImageUrl(file.getOriginalFilename());
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+       
+
+       this.contactRepository.save(contact);
+
+       return "redirect:/user/allcontacts/0";
+   }
+   
+
 }

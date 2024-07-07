@@ -35,7 +35,11 @@
                     </td>
                     <td th:text="${c.phone}">Otto</td>
                     <td>
-                        <i class="fa-solid fa-eye"></i>
+                      <form action="" method="post" th:action="@{'/user/updatecontact/'+${c.contId}}">
+                        <button type="submit">
+                          update
+                        </button>
+                      </form>
                         <a href="#" th:href="@{'/user/delete/'+${c.contId}}">
                           <i class="fa-solid fa-trash" ></i>
                         </a>
