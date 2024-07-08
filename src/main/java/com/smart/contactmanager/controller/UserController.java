@@ -156,15 +156,22 @@ public class UserController {
    @GetMapping("/delete/{cid}")
    public String deleteContact(@PathVariable("cid") int cid, Principal principal) {
 
-    Optional<Contact> contactoOptional = this.contactRepository.findById(cid);
+    try {
+        Optional<Contact> contactoOptional = this.contactRepository.findById(cid);
        Contact contact = contactoOptional.get();
 
        String username = principal.getName();
        User user = this.userRepository.getUserByUserName(username);
-
+       File path = new ClassPathResource("/static/images").getFile();
+       File deletefile = new File(path, contact.getImageUrl());
+       
        if(user.getId() == contact.getUser().getId()){ 
+           deletefile.delete();
            this.contactRepository.deleteById(cid);
        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 
         return "redirect:/user/allcontacts/0";
    }
@@ -209,6 +216,12 @@ public class UserController {
 
        return "redirect:/user/allcontacts/0";
    }
+
+   @GetMapping("/profile")
+   public String UserProfile(Model model) {
+       return "normal/profile";
+   }
+   
    
 
 }
