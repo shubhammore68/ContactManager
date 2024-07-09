@@ -153,7 +153,7 @@ public class UserController {
     
 
     // delete contact
-   @GetMapping("/delete/{cid}")
+   @PostMapping("/delete/{cid}")
    public String deleteContact(@PathVariable("cid") int cid, Principal principal) {
 
     try {
