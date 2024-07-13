@@ -1,0 +1,28 @@
+version: '3'
+services:
+  backend:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+    networks:
+      - bootapp
+
+
+  appservice:
+    build:
+      context: .
+    depends_on:
+      - backend
+    environment:
+      - spring.datasource.url=jdbc:mysql://backend:3306/contactmanager?createDatabaseIfNotExist=true
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+    ports:
+      - 8080:8080
+    networks:
+      - bootapp
+
+networks:
+  bootapp:
